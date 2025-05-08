@@ -1,0 +1,84 @@
+{% extends "base/base.html" %} {% block title %} Results {% endblock %} {% block
+content%}
+<br />
+<div class="container text-center">
+  <h1>Results!</h1>
+</div>
+
+<div class="container align-middle">
+  <!-- Section: Data Received -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h2 class="h4">Data Received</h2>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        {% for key, value in data_received.items() %}
+        <li class="list-group-item"><strong>{{key}}:</strong> {{value}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section: Sentiment Analysis -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h2 class="h4">Sentiment Analysis</h2>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Data Type</th>
+            <th scope="col">Polarity</th>
+            <th scope="col">Subjectivity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data, analysis in analysis_data.items() %}
+          <tr>
+            <td>{{ data }}</td>
+            <td>{{ analysis.polarity }}</td>
+            <td>{{ analysis.subjectivity }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Section: Spam Detection Results -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h2 class="h4">Scam Detection Results</h2>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Data Type</th>
+            <th scope="col">Model Used</th>
+            <th scope="col">Detection Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data, result in spam_results.items() %}
+          <tr>
+            <td>{{ data }}</td>
+            <td>{{ result["model"] }}</td>
+            <td>{{ result["result"] }}</td>
+          </tr>
+          {% endfor %} {% for data, result in gemini_results.items() %}
+          <tr>
+            <td>{{ data }}</td>
+            <td>{{ result["model"] }}</td>
+            <td>{{ result["result"] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

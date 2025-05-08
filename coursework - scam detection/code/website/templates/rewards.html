@@ -1,0 +1,57 @@
+{% extends "base/base.html" %} {% block title %} Rewards {% endblock %} {% block
+content%}
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="{{url_for ('static', filename='/styles/rewards.css')}}"
+  />
+</head>
+
+<br />
+<br />
+<br />
+<body>
+  <!-- Main Rewards Container -->
+  <div class="rewards-container">
+    <!-- Statistics Section -->
+    <div class="statistics">
+      <h2>Your Progress</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-value">0</span>
+          <span class="stat-label">Day Streak</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">$385</span>
+          <span class="stat-label">Total Cashback</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">Bronze</span>
+          <span class="stat-label">Current Level</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">1</span>
+          <span class="stat-label">Top 3 Finishes</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leaderboard Section -->
+    <div class="leaderboard">
+      <h2>Leaderboard</h2>
+      <ul>
+        <li><span>1. Alice</span><span class="points">$542</span></li>
+        <li class="highlight">
+          <span>2. {{ user.first_name }}</span><span class="points">$385</span>
+        </li>
+        <li><span>3. Bob</span><span class="points">$216</span></li>
+        <li><span>4. Jazz</span><span class="points">$146</span></li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+{% endblock %}

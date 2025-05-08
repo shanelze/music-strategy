@@ -1,0 +1,167 @@
+{% extends "base/base.html" %} {% block title %} Learning {% endblock %} {%
+block content%}
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="{{url_for ('static', filename='/styles/learning.css')}}"
+  />
+</head>
+
+<div class="all-vids">
+  <div class="row row-cols-1 row-cols-lg-3 g-4">
+    <div class="col">
+      <div class="card h-100">
+        <video controls preload="auto">
+          <source
+            src="{{ url_for('static', filename='assets/learning/impersonation-scam.mp4') }}"
+            type="video/mp4"
+          />
+        </video>
+        <span class="month-label">January</span>
+        <div class="card-body">
+          <h5 class="card-title">Impersonation Scams</h5>
+          <h5 class="subtitle">Identification</h5>
+          <p class="card-text">
+            This video offers guidance on identifying scams where fraudsters
+            pose as trusted individuals or organizations, highlighting warning
+            signs and strategies to protect yourself from deception and
+            safeguard personal information.
+          </p>
+        </div>
+        <div class="card-footer">
+          <div class="status-row">
+            <span class="time">&#x23F3; 4 min</span>
+            <span class="status" style="color: red">&#x2716; Incomplete</span>
+          </div>
+          <div class="status-row">
+            <button class="action-button-outline">Resume &rarr;</button>
+            <div class="icon-container">
+              <div class="icon-background">
+                <img
+                  src="{{ url_for('static', filename='assets/icons/heart.png') }}"
+                  alt="Heart Icon"
+                />
+              </div>
+              <div class="icon-background">
+                <img
+                  src="{{ url_for('static', filename='assets/icons/play.png') }}"
+                  alt="Play Icon"
+                />
+              </div>
+              <div class="icon-background">
+                <img
+                  src="{{ url_for('static', filename='assets/icons/eye.png') }}"
+                  alt="Eye Icon"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <video controls preload="auto">
+          <source
+            src="{{ url_for('static', filename='assets/learning/investment-scam.mp4') }}"
+            type="video/mp4"
+          />
+        </video>
+        <span class="month-label">February</span>
+        <div class="card-body">
+          <h5 class="card-title">Investment Scams</h5>
+          <h5 class="subtitle">Identification</h5>
+          <p class="card-text">
+            This video provides key insights into spotting fraudulent investment
+            opportunities, covering common tactics used by scammers, red flags
+            to watch for, and tips to protect your finances.
+          </p>
+        </div>
+        <div class="card-footer">
+          <div class="status-row">
+            <span class="time">&#x23F3; 2 min</span>
+            <span class="status">&#x2714; Completed</span>
+          </div>
+          <div class="status-row">
+            <button class="action-button-outline">Rewatch &rarr;</button>
+            <div class="icon-container">
+              <div class="icon-background">
+                <img
+                  src="{{ url_for('static', filename='assets/icons/heart.png') }}"
+                  alt="Heart Icon"
+                />
+              </div>
+              <div class="icon-background">
+                <img
+                  src="{{ url_for('static', filename='assets/icons/play.png') }}"
+                  alt="Play Icon"
+                />
+              </div>
+              <div class="icon-background">
+                <img
+                  src="{{ url_for('static', filename='assets/icons/eye.png') }}"
+                  alt="Eye Icon"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <video controls preload="auto">
+          <source
+            src="{{ url_for('static', filename='assets/learning/love-scam.mp4') }}"
+            type="video/mp4"
+          />
+        </video>
+        <span class="month-label">March</span>
+        <div class="card-body">
+          <h5 class="card-title">Love Scams</h5>
+          <h5 class="subtitle">Identification</h5>
+          <p class="card-text">
+            This video provides practical advice on identifying and avoiding
+            romance scams, covering common red flags, warning signs, and ways to
+            protect yourself from emotional and financial harm in online
+            relationships.
+          </p>
+        </div>
+        <div class="card-footer">
+          <div class="status-row">
+            <span class="time">&#x23F3; 3 min</span>
+            <span class="status">&#x2714; Completed</span>
+          </div>
+          <div class="status-row">
+            <button class="action-button-outline">Rewatch &rarr;</button>
+            <div class="icon-container">
+              <div class="icon-background">
+                <img
+                  src="{{ url_for('static', filename='assets/icons/heart.png') }}"
+                  alt="Heart Icon"
+                />
+              </div>
+              <div class="icon-background">
+                <img
+                  src="{{ url_for('static', filename='assets/icons/play.png') }}"
+                  alt="Play Icon"
+                />
+              </div>
+              <div class="icon-background">
+                <img
+                  src="{{ url_for('static', filename='assets/icons/eye.png') }}"
+                  alt="Eye Icon"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

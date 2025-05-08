@@ -1,0 +1,192 @@
+{% extends "base/base.html" %} {% block title %} FAQ {% endblock %} {% block
+content %}
+
+<head>
+  <!-- Include Marked.js for Markdown parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<div class="container">
+  <h1 class="text-center mt-4">Talk to ScamMi</h1>
+
+  <!-- Chat area -->
+  <div class="chat-area my-5" id="chat-box">
+    <!-- Bot's Initial Message -->
+    <div class="d-flex justify-content-start align-items-center mb-3">
+      <img
+        src="{{ url_for('static', filename='assets/meilleur-chatbot.jpg') }}"
+        class="rounded-circle bot-avatar mr-2"
+        alt="Bot Avatar"
+        style="width: 40px; height: 40px; object-fit: cover; margin-right: 10px"
+      />
+      <div
+        class="border-left pl-3 bot-message"
+        style="border-color: black; border-width: 3px"
+      >
+        <p
+          class="chat-bubble bg-light text-dark border p-2 rounded"
+          style="border-color: #ddd"
+        >
+          Hi {{ user.first_name }}, you have come to the correct place. Feel
+          free to ask me any questions you might have regarding scams.
+        </p>
+      </div>
+    </div>
+
+    <div id="previous-chat">
+      {% for user in faq %}
+      <div class="d-flex justify-content-end align-items-center mb-3">
+        <div class="user-message">
+          <p
+            class="chat-bubble bg-secondary text-white border p-2 rounded"
+            style="border-color: #ddd"
+          >
+            {{ user.user_response }} <br /><strong
+              >Asked on {{ user.date.strftime("%d-%m-%Y, %H:%M:%S") }}
+            </strong>
+          </p>
+        </div>
+        <img
+          src="{{ url_for('static', filename='/assets/output.png') }}"
+          alt="Profile Image"
+          style="
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            margin-left: 10px;
+          "
+        />
+      </div>
+      {% for chat in chatbot %} {% if user.id == chat.id %}
+      <div class="d-flex justify-content-start align-items-center mb-3">
+        <img
+          src="{{ url_for('static', filename='assets/meilleur-chatbot.jpg') }}"
+          class="rounded-circle bot-avatar mr-2"
+          alt="Bot Avatar"
+          style="
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            margin-right: 10px;
+          "
+        />
+        <div
+          class="border-left pl-3 bot-message"
+          style="border-color: black; border-width: 3px"
+        >
+          <div
+            class="chat-bubble bg-light text-dark border p-2 rounded"
+            style="border-color: #ddd"
+          >
+            {{ md_response[chat.id] | markdown | safe }}
+            <strong>
+              Generated on {{ chat.date.strftime("%d-%m-%Y, %H:%M:%S") }}
+            </strong>
+          </div>
+        </div>
+      </div>
+      {% endif %} {% endfor %} {% endfor %}
+    </div>
+  </div>
+
+  <!-- Input area at the bottom -->
+  <div class="fixed-bottom p-3 bg-white border-top">
+    <div class="row">
+      <div class="col-12 col-lg-9 mb-2 mb-md-0">
+        <input
+          type="text"
+          id="user-input"
+          class="form-control"
+          placeholder="Type your question here"
+        />
+      </div>
+
+      <!-- Buttons for large and small screens -->
+      <div class="col-12 col-lg-3 d-flex gap-2">
+        <button onclick="askQuestion()" class="btn btn-primary w-100">
+          Send
+        </button>
+        <button
+          onclick="deleteHistory({{ user.id }})"
+          class="btn btn-danger w-100"
+        >
+          Clear History
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function askQuestion() {
+    const question = document.getElementById("user-input").value;
+    document.getElementById("user-input").value = "";
+    if (!question.trim()) return;
+
+    // get current time
+    var today = new Date(Date.now()).toLocaleString();
+
+    // Display user message in chat area
+    document.getElementById("chat-box").innerHTML += `
+            <div class="d-flex justify-content-end align-items-center mb-3">
+                <div class="user-message">
+                    <p class="chat-bubble bg-secondary text-white border p-2 rounded" style="border-color: #ddd;">${question}
+                      <br/><strong>Asked on ${today}</strong></p>
+                </div>
+        <img src="{{ url_for('static', filename='/assets/output.png') }}" alt="Profile Image"
+          style="
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            margin-left: 10px;
+          "
+        />            
+        </div>`;
+
+    // scroll to the latest message
+    var last = document.getElementById("chat-box").lastChild;
+    last.scrollIntoView();
+
+    // Send question to backend and get response
+    fetch("/faq/ask", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ question }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Display formatted bot response using Markdown
+        const formattedResponse = marked.parse(data.response);
+
+        // get current time
+        var today = new Date(Date.now()).toLocaleString();
+
+        document.getElementById("chat-box").innerHTML += `
+              <div class="d-flex justify-content-start align-items-center mb-3">
+                  <img src="{{ url_for('static', filename='assets/meilleur-chatbot.jpg') }}" class="rounded-circle bot-avatar mr-2" alt="Bot Avatar" style="width: 40px; height: 40px; object-fit: cover; margin-right:10px;">
+                  <div class="border-left pl-3 bot-message" style="border-color: black; border-width: 3px;">
+                      <div class="gemini-response">
+                        <div class="chat-bubble bg-light text-dark border p-2 rounded" style="border-color: #ddd;">${formattedResponse} <strong> Generated on ${today}</strong></div>
+                      </div>
+                  </div>
+              </div>`;
+
+        // scroll to the latest message
+        var last = document.getElementById("chat-box").lastChild;
+        last.scrollIntoView();
+      });
+  }
+
+  function deleteHistory(userId) {
+    fetch("/faq/delete", {
+      method: "POST",
+      body: JSON.stringify({ userId: userId }),
+    }).then((response) => {
+      window.location.href = "/faq";
+    });
+  }
+</script>
+
+{% endblock %}

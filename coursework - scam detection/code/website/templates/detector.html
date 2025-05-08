@@ -1,0 +1,62 @@
+{% extends "base/base.html" %} {% block title %} Detector {% endblock %} {%
+block content%}
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link
+    rel="stylesheet"
+    href="{{url_for ('static', filename='/styles/detector.css')}}"
+  />
+</head>
+
+<br />
+
+<div class="text-center">
+  <div class="d-flex align-items-center justify-content-center">
+    <h1 class="glitch">
+      <span aria-hidden="true">GETTING SCAMMED?</span>
+      GETTING SCAMMED?
+      <span aria-hidden="true">GETTING SCAMMED?</span>
+    </h1>
+  </div>
+</div>
+
+<h3>Voice Recording</h3>
+<div>
+  <button class="btn btn-success" id="start">Start</button>
+  <button class="btn btn-danger" id="stop">Stop</button>
+  <span hidden class="align-middle" id="dot"></span>
+</div>
+
+<br />
+
+<form action="/detector/result" method="post" enctype="multipart/form-data">
+  <div class="mb-3">
+    <textarea
+      class="form-control"
+      name="speech_data"
+      id="speech_data"
+      rows="4"
+      readonly
+    ></textarea>
+  </div>
+
+  <div class="mb-3">
+    <h3>Insert Text</h3>
+    <textarea class="form-control" name="text_data" rows="4"></textarea>
+  </div>
+
+  <div class="mb-3">
+    <h3>Audio File Upload</h3>
+    <input type="file" name="audio_data" />
+  </div>
+  <div class="container text-center">
+    <button type="submit" id="submitButton" class="btn btn-primary">
+      Analyse
+    </button>
+  </div>
+</form>
+
+<script src="{{url_for ('static', filename='/scripts/detector.js')}}"></script>
+
+{% endblock %}

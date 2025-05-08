@@ -1,0 +1,81 @@
+{% extends "base/base.html" %} {% block title %} Profile {% endblock %} {% block
+content%}
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="{{url_for ('static', filename='/styles/profile.css')}}"
+  />
+</head>
+
+<body>
+  <div class="profile-container">
+    <!-- Profile Image (TO ADD IN SHANE'S AVATAR CREATOR) -->
+    <div class="profile-image">
+      <img
+        src="{{ url_for('static', filename='/assets/output.png') }}"
+        alt="Profile Image"
+      />
+      <!-- Replace with actual image path -->
+    </div>
+
+    <!-- Profile Details -->
+    <div class="profile-details">
+      <h1 class="profile-name">{{ user.first_name }}</h1>
+      <span class="status">Active</span>
+
+      <p class="scams-identified">Scams Identified: {{scams}}</p>
+      <p class="join-date">Protecting Since 14 February 2024</p>
+
+      <div class="stats">
+        <div class="stat">
+          <label>Speech Files Uploaded</label>
+          <input type="text" value="{{speech_count}}" readonly />
+        </div>
+        <div class="stat">
+          <label>Text Files Uploaded</label>
+          <input type="text" value="{{text_count}}" readonly />
+        </div>
+        <div class="stat">
+          <label>Audio Files Uploaded</label>
+          <input type="text" value="{{audio_count}}" readonly />
+        </div>
+        <div class="stat">
+          <label>Videos Completed</label>
+          <input type="text" value="3" readonly />
+        </div>
+      </div>
+
+      <!-- Profile stats -->
+      <div class="profile-stats">
+        <div class="table-wrapper">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">S/N</th>
+                <th scope="col">Date Posted</th>
+                <th scope="col">Summary</th>
+                <th scope="col">Data Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for data in scam_data %}
+              <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ data.date.strftime ("%d-%m-%Y %H:%M:%S") }}</td>
+                <td><span class="summary">{{ data.summary }}</span></td>
+                <td>{{ data.type }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <a id="forum" href="/forum" class="forum-button">Go to Forum</a>
+    </div>
+  </div>
+</body>
+
+{% endblock %}

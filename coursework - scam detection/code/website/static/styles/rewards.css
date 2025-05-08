@@ -1,0 +1,89 @@
+/* General Styling */
+h1 {
+  text-align: center;
+  font-size: 36px; /* Increased font size */
+  font-weight: 900; /* Added extra bold weight */
+  margin-top: 30px; /* Shifts down content by adding margin above */
+  color: #333; /* Optional: Adjust color if needed */
+}
+
+.rewards-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px;
+  margin-top: 20px;
+  max-width: 1400px; /* Increased width to make sections longer */
+  margin: auto;
+}
+
+.statistics,
+.leaderboard {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 40px 20px; /* Increased padding for more height */
+  flex: 1; /* Make both sections take equal width */
+  max-width: 600px; /* Adjusted width for longer appearance */
+}
+
+.statistics h2,
+.leaderboard h2 {
+  font-size: 28px; /* Increased font size */
+  font-weight: bold; /* Added bold styling */
+  color: #009688;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Statistics Section */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px; /* Increased gap for more spacious layout */
+}
+
+.stat-item {
+  background-color: #d9d9d9;
+  padding: 20px; /* Added padding to increase size */
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 24px;
+  color: #5a3fc0;
+  font-weight: bold;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Leaderboard Section */
+.leaderboard ul {
+  list-style: none;
+  padding: 0;
+}
+
+.leaderboard li {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px; /* Increased padding for height */
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.leaderboard li span {
+  font-size: 16px;
+}
+
+.points {
+  color: #5a3fc0;
+}
+
+.highlight {
+  background-color: #d9e9e6; /* Highlight for current user */
+  font-weight: bold;
+}
